@@ -27,6 +27,7 @@ class Storage:
 
 	def putResult(self,url):
 		self.resultsFile.write(url+"\n")
+		self.resultsFile.flush()
 
 	def putResults(self, urls):
 		for url in urls:
