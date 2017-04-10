@@ -7,6 +7,7 @@ MAX_BUF_WRITES = 10
 #BloomSet is used to maintain visited status of the urls
 class BloomSet:
 
+	#initialize member variables
 	def __init__(self, name):
 		self.name = name
 		self.lock = Lock()

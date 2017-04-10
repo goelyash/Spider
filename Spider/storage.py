@@ -2,25 +2,30 @@ import os
 
 class Storage:
 
+#initialize member variables.
 	def __init__(self, name):
 		self.name = name
 		self.queuePath = os.path.join(name,"queue")
 		self.resultsPath = os.path.join(name, "results")
 		self.createDirectory()
 		self.createFiles()
+		self.queueFile
+		self.resultsFile
 
-	#Creating a directory of that sepcific base URL
+	#Creating a directory for a specific base URL
 	def createDirectory(self):
 		if not os.path.exists(self.name):
 			os.makedirs(self.name)
 			print("directory created " + self.name)
 		else:
 			print("Directory already present")
-
+ 	
+ 	#create  the files for the above directory.
 	def createFiles(self):
 		self.queueFile = open(self.queuePath,"a+")
 		self.resultsFile = open(self.resultsPath,"a+")
 
+	#close the files after use.
 	def close(self):
 		self.queueFile.close()
 		self.resultsFile.close()

@@ -5,8 +5,10 @@ from bloomset import BloomSet
 from threading import Thread
 import utilities
 
+#the class for the spiderworker
 class SpiderWorker(HTMLParser):
 
+ 	#initialize members.
 	def __init__(self, queue, bloomset, maxDepth=1):
 		HTMLParser.__init__(self)
 		self.queue = queue
@@ -18,7 +20,7 @@ class SpiderWorker(HTMLParser):
 		t.daemon = True
 		t.start()
 
-
+	#given a tag,identify anchor tags, process them.
 	def handle_starttag(self, tag, attrs):
 		temp = ''
 		if tag == 'a':

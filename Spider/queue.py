@@ -34,8 +34,9 @@ class SpiderQueue(Queue):
 		self.storage.putResult(url)
 		self.lock.release()
 
+
+	#if the queue is empty then load from storage
 	def get(self):
-		#if the queue is empty then load from storage
 		if self.qsize()==0:
 			self.lock.acquire()
 			if self.qsize()==0:
@@ -52,6 +53,7 @@ class SpiderQueue(Queue):
 		self.lock.release()
 		return element.split(' ')
 
+	#close all the files used by the program.
 	def close(self):
 		self.lock.acquire()
 		self.storage.popQueue(self.readCount)
