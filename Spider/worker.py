@@ -1,11 +1,11 @@
 from urllib2 import urlopen
 from HTMLParser import HTMLParser
-from queue import KeedaQueue
+from queue import SpiderQueue
 from bloomset import BloomSet
 from threading import Thread
 import utilities
 
-class KeedaWorker(HTMLParser):
+class SpiderWorker(HTMLParser):
 
 	def __init__(self, queue, bloomset, maxDepth=1):
 		HTMLParser.__init__(self)

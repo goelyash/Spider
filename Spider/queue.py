@@ -6,7 +6,7 @@ MAX_BACKLOG = 100
 MAX_QUEUE_SIZE = 100
 MIN_QUEUE_SIZE = 2
 
-class KeedaQueue(Queue):
+class SpiderQueue(Queue):
 
 	def __init__(self, url, name="default"):
 		Queue.__init__(self)
