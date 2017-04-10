@@ -1,1 +1,5 @@
-Keeda is Python based web crawler
+Spider is Python based web crawler
+
+It runs on Python 2.7 and uses a bloom filter for efficient storage.
+
+
