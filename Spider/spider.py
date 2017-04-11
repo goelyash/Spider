@@ -3,14 +3,14 @@ from bloomset import BloomSet
 from queue import SpiderQueue
 import utilities
 
-#the base class for initializing member variables and sending spiderworkers.
+#Base class for initializing member variables and sending spiderworkers.
 class Spider:
 	def __init__(self , baseUrl, numthreads=1, depth=1):
 			self.baseUrl = baseUrl
 			self.numthreads = numthreads
 			self.depth = depth
 			if not utilities.validateURL(baseUrl):
-				raise ValueError("ayuhi ")
+				raise ValueError("Invalid URL")
 
 	#initialize spiderqueue,bloomset,number of spiderworkers.
 	def start(self):

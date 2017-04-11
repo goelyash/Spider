@@ -5,7 +5,7 @@ from bloomset import BloomSet
 from threading import Thread
 import utilities
 
-#the class for the spiderworker
+#Class for Crawling URL's
 class SpiderWorker(HTMLParser):
 
  	#initialize members.
@@ -20,7 +20,7 @@ class SpiderWorker(HTMLParser):
 		t.daemon = True
 		t.start()
 
-	#given a tag,identify anchor tags, process them.
+	#Identifies anchor tag's from the HTML code 
 	def handle_starttag(self, tag, attrs):
 		temp = ''
 		if tag == 'a':
@@ -36,6 +36,13 @@ class SpiderWorker(HTMLParser):
 						return
 					self.urls.append(temp)
 
+	'''
+	Check's the depth of link to be crawled
+	Takes the HTML code of the page, decodes it and calls the above function
+	Places the new URL's in the queue file
+	Places the crawled URL in the result file and bloomset 
+	Once crawled until the required depth returns back to spider.py
+	'''
 	def crawl(self):
 		while True:
 			try:
