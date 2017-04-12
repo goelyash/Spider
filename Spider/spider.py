@@ -3,7 +3,7 @@ from bloomset import BloomSet
 from queue import SpiderQueue
 import utilities
 
-#the base class for initializing member variables and sending spiderworkers.
+#Base class for initializing member variables and sending spiderworkers.
 class Spider:
 	def __init__(self , baseUrl, numthreads=1, depth=1):
 			self.baseUrl = baseUrl
@@ -17,7 +17,7 @@ class Spider:
 		spiderQueue = SpiderQueue(self.baseUrl, utilities.getDomain(self.baseUrl))
 		bloomSet = BloomSet(utilities.getDomain(self.baseUrl))
 		for i in range(self.numthreads):
-			SpiderWorker(spiderQueue, bloomSet, self.depth)
+			SpiderWorker(spiderQueue, bloomSet,  self.baseUrl, self.depth)
 		spiderQueue.join()
 		spiderQueue.close()
 		bloomSet.close()

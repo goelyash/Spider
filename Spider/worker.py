@@ -5,13 +5,14 @@ from bloomset import BloomSet
 from threading import Thread
 import utilities
 
-#the class for the spiderworker
+#Class for Crawling URL's
 class SpiderWorker(HTMLParser):
 
  	#initialize members.
-	def __init__(self, queue, bloomset, maxDepth=1):
+	def __init__(self, queue, bloomset, name, maxDepth=1):
 		HTMLParser.__init__(self)
 		self.queue = queue
+		self.baseURL = name
 		self.bloomset = bloomset
 		self.maxDepth = maxDepth
 		self.urls = []
@@ -20,7 +21,7 @@ class SpiderWorker(HTMLParser):
 		t.daemon = True
 		t.start()
 
-	#given a tag,identify anchor tags, process them.
+	#Identifies anchor tag's from the HTML code 
 	def handle_starttag(self, tag, attrs):
 		temp = ''
 		if tag == 'a':
@@ -36,6 +37,13 @@ class SpiderWorker(HTMLParser):
 						return
 					self.urls.append(temp)
 
+	'''
+	Check's the depth of link to be crawled
+	Takes the HTML code of the page, decodes it and calls the above function
+	Places the new URL's in the queue file
+	Places the crawled URL in the result file and bloomset 
+	Once crawled until the required depth returns back to spider.py
+	'''
 	def crawl(self):
 		while True:
 			try:
@@ -43,7 +51,7 @@ class SpiderWorker(HTMLParser):
 				line = self.queue.get()
 				self.url,depth = line
 				depth = int(depth)
-				if depth>=self.maxDepth or self.bloomset.get(self.url):
+				if depth>=self.maxDepth or self.bloomset.get(self.url) or utilities.compare(self.baseURL, self.url):
 					continue
 				self.bloomset.add(self.url)
 				res = urlopen(self.url)
