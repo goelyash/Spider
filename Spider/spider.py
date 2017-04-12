@@ -17,7 +17,7 @@ class Spider:
 		spiderQueue = SpiderQueue(self.baseUrl, utilities.getDomain(self.baseUrl))
 		bloomSet = BloomSet(utilities.getDomain(self.baseUrl))
 		for i in range(self.numthreads):
-			SpiderWorker(spiderQueue, bloomSet, self.depth)
+			SpiderWorker(spiderQueue, bloomSet,  self.baseUrl, self.depth)
 		spiderQueue.join()
 		spiderQueue.close()
 		bloomSet.close()
