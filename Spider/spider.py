@@ -10,7 +10,7 @@ class Spider:
 			self.numthreads = numthreads
 			self.depth = depth
 			if not utilities.validateURL(baseUrl):
-				raise ValueError("ayuhi ")
+				raise ValueError("Invalid URL")
 
 	#initialize spiderqueue,bloomset,number of spiderworkers.
 	def start(self):

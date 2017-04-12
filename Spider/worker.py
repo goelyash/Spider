@@ -49,7 +49,7 @@ class SpiderWorker(HTMLParser):
 				res = urlopen(self.url)
 				body = res.read().decode("ISO-8859-1")
 				self.feed(body)
-				print self.url,len(self.urls)
+			##	print self.url,len(self.urls)
 				self.queue.put(self.urls, depth+1)
 				self.queue.putResult(self.url)
 			except Exception as e:
