@@ -1,7 +1,9 @@
 from worker import SpiderWorker
 from bloomset import BloomSet
 from queue import SpiderQueue
+from storage import Storage
 import utilities
+import datetime
 
 #Base class for initializing member variables and sending spiderworkers.
 class Spider:

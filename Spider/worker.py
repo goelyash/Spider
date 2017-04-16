@@ -3,10 +3,13 @@ from HTMLParser import HTMLParser
 from queue import SpiderQueue
 from bloomset import BloomSet
 from threading import Thread
+from storage import Storage
 import utilities
+import datetime
 
 #Class for Crawling URL's
 class SpiderWorker(HTMLParser):
+	date= datetime.datetime.now()
 
  	#initialize members.
 	def __init__(self, queue, bloomset, name, maxDepth=1):
@@ -58,8 +61,11 @@ class SpiderWorker(HTMLParser):
 				body = res.read().decode("ISO-8859-1")
 				self.feed(body)
 			##	print self.url,len(self.urls)
+			##	print datetime.datetime.now(),Storage.queue,Storage.crawled
 				self.queue.put(self.urls, depth+1)
 				self.queue.putResult(self.url)
+				print datetime.datetime.now() - SpiderWorker.date ,Storage.queue,Storage.crawled
+				utilities.addtocsv(datetime.datetime.now() - SpiderWorker.date ,Storage.queue,Storage.crawled)
 			except Exception as e:
 				print e,line
 			finally:

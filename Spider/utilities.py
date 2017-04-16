@@ -1,4 +1,5 @@
 import urlparse
+import csv
 
 #validate a given URL
 def validateURL(url):
@@ -33,3 +34,8 @@ def compare(baseURL, crawlURL):
 		if baseDomain == crawlDomain:
 			return False
 	return True
+
+def addtocsv(t,q,c):
+	with open('linkrate.csv','a') as newFile:
+		newFileWriter = csv.writer(newFile)
+		newFileWriter.writerow([t,q,c])
