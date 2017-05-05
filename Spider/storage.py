@@ -16,7 +16,7 @@ class Storage:
 	def createDirectory(self):
 		if not os.path.exists(self.name):
 			os.makedirs(self.name)
-			print("directory created " + self.name)
+			print("Directory created " + self.name)
 		else:
 			print("Directory already present")
  	

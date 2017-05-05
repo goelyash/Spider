@@ -54,6 +54,7 @@ class SpiderWorker(HTMLParser):
 				if depth>=self.maxDepth or self.bloomset.get(self.url) or utilities.compare(self.baseURL, self.url):
 					continue
 				self.bloomset.add(self.url)
+				arr = utilities.split(self.url)
 				res = urlopen(self.url)
 				body = res.read().decode("ISO-8859-1")
 				self.feed(body)

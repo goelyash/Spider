@@ -33,3 +33,18 @@ def compare(baseURL, crawlURL):
 		if baseDomain == crawlDomain:
 			return False
 	return True
+
+def split(url):
+	arr = []
+	parsedURL = urlparse.urlparse(url)
+	arr.append(parsedURL[1])
+	path = parsedURL[2]
+	tempStr = ""
+	for i in range(1,len(path)):
+		if path[i].isalnum():
+			tempStr += path[i]
+		if path[i] == '/':
+			arr.append(temp)
+			temp = ""
+			i += 1
+	return arr
