@@ -52,11 +52,29 @@ class BloomSet:
 		except:
 			return ScalableBloomFilter(ScalableBloomFilter.LARGE_SET_GROWTH)
 
-	def multiAdd(urls):
-		filename = self.multiName
-		for i in range(len(urls)):
-			filename += str(i+1)
-			self.file = open(os.path.join(self.multiDir,filename), "a+")
+	def multiAdd(self,urls):
+		self.lock.acquire()
+		for i in range(0, len(urls)):
+			if urls[i] == "":
+				pass
+			else:
+				filename = self.multiName + str(i)
+				self.multiFile = open(os.path.join(self.multiDir,filename), "a")
+				self.filter1 = self.boot1()
+				self.multiFile.seek(0)
+				self.multiFile.truncate()
+				self.filter1.add(urls[i])
+				self.filter1.tofile(self.multiFile)
+				self.multiFile.close()
+		self.lock.release()
+
+	def boot1(self):
+		try:
+			self.multiFile.seek(0)
+			a = ScalableBloomFilter.fromfile(self.multiFile)
+			return a
+		except:
+			return ScalableBloomFilter(ScalableBloomFilter.LARGE_SET_GROWTH)
 
 	def write(self):
 		self.file.seek(0)
