@@ -1,4 +1,5 @@
 import urlparse
+import csv
 
 #validate a given URL
 def validateURL(url):
@@ -48,3 +49,8 @@ def split(url):
 			temp = ""
 			i += 1
 	return arr
+
+def addtocsv(t,q,c):
+	with open('linkrate.csv','a') as newFile:
+		newFileWriter = csv.writer(newFile)
+		newFileWriter.writerow([t,q,c])

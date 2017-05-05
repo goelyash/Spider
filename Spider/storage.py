@@ -1,6 +1,11 @@
 import os
 
+#TODO : Check queue count variable. 
+
 class Storage:
+
+	queue = 0
+	crawled = 0
 
 	#Initialize member variables
 	def __init__(self, name):
@@ -11,6 +16,8 @@ class Storage:
 		self.createFiles()
 		self.queueFile
 		self.resultsFile
+		Storage.queue = 0
+		Storage.crawled = 0
 
 	#Creates directory in the name of the base URL
 	def createDirectory(self):
@@ -19,7 +26,7 @@ class Storage:
 			print("Directory created " + self.name)
 		else:
 			print("Directory already present")
- 	
+
  	#Creates files required in the directory created above
 	def createFiles(self):
 		self.queueFile = open(self.queuePath,"a+")
@@ -32,20 +39,25 @@ class Storage:
 
 	#Storing crawled URL's
 	def putResult(self,url):
+		Storage.crawled = Storage.crawled + 1
 		self.resultsFile.write(url+"\n")
 		self.resultsFile.flush()
 
 	def putResults(self, urls):
 		for url in urls:
 			self.resultsFile.write(url+"\n")
+			Storage.crawled = Storage.crawled + 1
 
 	#Stroring URL's in the queue file
 	def putQueues(self, urls, depth=0):
 		for url in urls:
 			self.queueFile.write(url+" "+str(depth)+"\n")
+			Storage.queue = Storage.queue + 1
 
 	def putQueue(self, url, depth=0):
+		Storage.queue = Storage.queue + 1
 		self.queueFile.write(url+" "+str(depth)+"\n")
+		
 
 	#Returning top 'n' URL's from the queue file
 	def topQueue(self, n=0):
